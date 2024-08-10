@@ -62,6 +62,26 @@ export class LMS {
     // function to return borrowed books
     returnBook(isbnNotoReturn) {
 
+        if (!isbnNotoReturn) {
+            return "Please enter an ISBN number";
+        }
+
+        if (typeof isbnNotoReturn !== 'number') {
+            return "ISBN number must be a number";
+        }
+
+        let bookToReturn = this.booksInfo.find((book) => book.isbnNo === isbnNotoReturn);
+
+        if (!bookToReturn) {
+            return "No book found with this ISBN No.";
+        }
+
+        if (!bookToReturn.isBorrowed) {
+            return "The book is not currently borrowed";
+        }
+
+        bookToReturn.isBorrowed = false;
+        return `"${bookToReturn.title}" book returned successfully`;
     }
 
     // function to get available books for the user
