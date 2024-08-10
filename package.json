@@ -1,0 +1,22 @@
+{
+  "name": "tdd-assesment",
+  "version": "1.0.0",
+  "main": "LMS.js",
+  "type": "module",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.3",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
+}
