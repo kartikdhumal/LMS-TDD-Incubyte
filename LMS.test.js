@@ -35,4 +35,32 @@ describe('Library Management System', () => {
         expect(lms.viewAvailableBooks()).toEqual(expectedOutput);
         expect(lms.viewAvailableBooks().length).toBe(1);
     })
+
+    test('should return error messages for missing or invalid input when borrowing a book', () => {
+        let lms = new LMS();
+        lms.addBook(101, 'Maths', 'Kartik', 2019);
+        expect(lms.borrowBook()).toBe("Please enter an ISBN number");
+        expect(lms.borrowBook("101")).toBe("ISBN number must be a number");
+    })
+
+    test('should send error if ISBN No. not found to borrow book', () => {
+        let lms = new LMS();
+        lms.addBook(101, 'Maths', 'Kartik', 2019);
+        lms.addBook(201, 'Science', 'Krishna', 2014);
+        expect(lms.borrowBook(301)).toBe("No book found with this ISBN No.");
+    })
+
+    test('should send error if book is already borrowed', () => {
+        let lms = new LMS();
+        lms.addBook(101, 'Maths', 'Kartik', 2019);
+        lms.addBook(201, 'Science', 'Krishna', 2014)
+        lms.borrowBook(201);
+        expect(lms.borrowBook(201)).toBe(`The book "Science" is already borrowed`);
+    })
+
+    test('should be borrowed book successfully', () => {
+        let lms = new LMS();
+        lms.addBook(101, 'Maths', 'Kartik', 2019);
+        expect(lms.borrowBook(101)).toBe(`"Maths" Book Borrowed successfully`);
+    })
 })

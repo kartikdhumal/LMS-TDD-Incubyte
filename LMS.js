@@ -36,12 +36,11 @@ export class LMS {
 
     // function to borrow a book 
     borrowBook(isbnNotoBorrow) {
-
     }
 
     // function to return borrowed books
     returnBook(isbnNotoReturn) {
-        
+
     }
 
     // function to get available books for the user
