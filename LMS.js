@@ -8,19 +8,40 @@ export class LMS {
 
     // function to add a book
     addBook(isbnNo, title, author, publishedYear) {
-       
+
+        if (!isbnNo || !title || !author || !publishedYear) {
+            return "Please enter valid book details";
+        }
+
+        if (typeof isbnNo !== 'number' || typeof title !== 'string' || typeof author !== 'string' || typeof publishedYear !== 'number') {
+            return "Please enter valid book details";
+        }
+
+        let bookexistwithIsbn = this.booksInfo.find((book) => book.isbnNo === isbnNo);
+
+        if (bookexistwithIsbn) {
+            return `The book with ISBN ${isbnNo} already exists`;
+        }
+
+        let books = {
+            isbnNo,
+            title,
+            author,
+            publishedYear,
+            isBorrowed: false
+        };
+        this.booksInfo.push(books);
+        return `"${title}" book added`;
     }
 
     // function to borrow a book 
     borrowBook(isbnNotoBorrow) {
 
-      
     }
 
     // function to return borrowed books
     returnBook(isbnNotoReturn) {
-
-       
+        
     }
 
     // function to get available books for the user
