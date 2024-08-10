@@ -36,6 +36,27 @@ export class LMS {
 
     // function to borrow a book 
     borrowBook(isbnNotoBorrow) {
+
+        if (!isbnNotoBorrow) {
+            return "Please enter an ISBN number";
+        }
+
+        if (typeof isbnNotoBorrow !== 'number') {
+            return "ISBN number must be a number";
+        }
+
+        let bookToBorrow = this.booksInfo.find((book) => book.isbnNo === isbnNotoBorrow);
+
+        if (!bookToBorrow) {
+            return "No book found with this ISBN No.";
+        }
+
+        if (bookToBorrow.isBorrowed) {
+            return `The book "${bookToBorrow.title}" is already borrowed`;
+        }
+
+        bookToBorrow.isBorrowed = true;
+        return `"${bookToBorrow.title}" Book Borrowed successfully`;
     }
 
     // function to return borrowed books
