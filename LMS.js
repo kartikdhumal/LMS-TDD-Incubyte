@@ -30,6 +30,7 @@ export class LMS {
             publishedYear,
             isBorrowed: false
         };
+        
         this.booksInfo.push(books);
         return `"${title}" book added`;
     }

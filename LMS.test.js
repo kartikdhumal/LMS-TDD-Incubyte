@@ -1,6 +1,7 @@
 import { LMS } from "./LMS";
 
-describe('Library Management System', () => {
+
+describe('Tests for add book' , () => {
 
     test('should return appropriate error messages for invalid or missing book details when adding a book', () => {
         let lms = new LMS();
@@ -13,7 +14,7 @@ describe('Library Management System', () => {
         expect(lms.addBook("101", 'Science', 'Kartik', "2019")).toBe("Please enter valid book details");
     })
 
-    test('should send error for same ISBN No.', () => {
+    test('should send error for same ISBN No. when adding a book', () => {
         let lms = new LMS();
         lms.addBook(101, 'Maths', 'Kartik', 2019);
         lms.addBook(101, 'Science', 'Krishna', 2014);
@@ -36,6 +37,10 @@ describe('Library Management System', () => {
         expect(lms.viewAvailableBooks().length).toBe(1);
     })
 
+})
+
+describe('Tests for Borrow book' , () => {
+    
     test('should return error messages for missing or invalid input when borrowing a book', () => {
         let lms = new LMS();
         lms.addBook(101, 'Maths', 'Kartik', 2019);
@@ -43,7 +48,7 @@ describe('Library Management System', () => {
         expect(lms.borrowBook("101")).toBe("ISBN number must be a number");
     })
 
-    test('should send error if ISBN No. not found to borrow book', () => {
+    test('should send error if ISBN No. not found when borrowing a book', () => {
         let lms = new LMS();
         lms.addBook(101, 'Maths', 'Kartik', 2019);
         lms.addBook(201, 'Science', 'Krishna', 2014);
@@ -58,11 +63,16 @@ describe('Library Management System', () => {
         expect(lms.borrowBook(201)).toBe(`The book "Science" is already borrowed`);
     })
 
-    test('should be borrowed book successfully', () => {
+    test('should successfully borrow a book and update the available books list', () => {
         let lms = new LMS();
         lms.addBook(101, 'Maths', 'Kartik', 2019);
         expect(lms.borrowBook(101)).toBe(`"Maths" Book Borrowed successfully`);
+        expect(lms.viewAvailableBooks().length).toBe(0);
     })
+
+})
+
+describe('Tests for Return book' , () => {
 
     test('should return error messages for missing or invalid input when returning a book', () => {
         let lms = new LMS();
@@ -72,26 +82,31 @@ describe('Library Management System', () => {
         expect(lms.returnBook("101")).toBe("ISBN number must be a number");
     })
 
-    test('should return error message if ISBN No. not found to return book', () => {
+    test('should return error message if ISBN No. not found when returning a book', () => {
         let lms = new LMS();
         lms.addBook(101, 'Maths', 'Kartik', 2019);
         lms.borrowBook(101);
         expect(lms.returnBook(201)).toBe("No book found with this ISBN No.");
     })
 
-    test('should return error message if book is not borowed when returning book', () => {
+    test('should return error message if book is not borowed when returning a book', () => {
         let lms = new LMS();
         lms.addBook(101, 'Maths', 'Kartik', 2019);
         expect(lms.returnBook(101)).toBe(`The book is not currently borrowed`);
-    })  
+    })
 
-    test('should be returned book successfully', () => {
+    test('should successfully return a borrowed book and update the available books list', () => {
         let lms = new LMS();
         lms.addBook(101, 'Maths', 'Kartik', 2019);
         lms.borrowBook(101);
         expect(lms.returnBook(101)).toBe(`"Maths" book returned successfully`);
+        expect(lms.viewAvailableBooks().length).toBe(1);
     })
 
+})
+
+describe('Tests for View Available book' , () => {
+    
     test('should return empty array if books are not available', () => {
         let lms = new LMS();
         lms.addBook(101, 'Maths', 'Kartik', 2019);
@@ -127,4 +142,5 @@ describe('Library Management System', () => {
         }];
         expect(lms.viewAvailableBooks()).toEqual(expectedOutput);
     })
+
 })
